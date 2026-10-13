@@ -88,10 +88,7 @@ class Dataset:
         largo_pet = [m.medidas[2] for m in self.muestras]
         ancho_pet = [m.medidas[3] for m in self.muestras]
 
-        maximo = [max(largo_sep), max(ancho_sep), max(largo_pet), max(ancho_pet)]
-        minimo = [min(largo_sep), min(ancho_sep), min(largo_pet), min(ancho_pet)]
-
-        return (maximo, minimo)
+        return [(max(largo_sep), min(largo_sep)), (max(ancho_sep), min(ancho_sep)), (max(largo_pet), min(largo_pet)), (max(ancho_pet), min(ancho_pet))]
 
     def normalizar(self, rangos: list[tuple[float, float]]) -> "Dataset":
         """Escala cada característica al rango 0-1 con los rangos dados."""
