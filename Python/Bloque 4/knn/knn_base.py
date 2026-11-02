@@ -92,7 +92,28 @@ class Dataset:
 
     def normalizar(self, rangos: list[tuple[float, float]]) -> "Dataset":
         """Escala cada característica al rango 0-1 con los rangos dados."""
-        ...
+
+        max_l_s, min_l_s = rangos[0]
+        max_a_s, min_a_s = rangos[1]
+        max_l_p, min_l_p = rangos[2]
+        max_a_p, min_a_p = rangos[3]
+
+        range_l_s = (max_l_s - min_l_s) or 1.0
+        range_a_s = (max_a_s - min_a_s) or 1.0
+        range_l_p = (max_l_p - min_l_p) or 1.0
+        range_a_p = (max_a_p - min_a_p) or 1.0
+
+        nuevas_muestras = []
+        for m in self.muestras:
+            medidas_norm = [
+                (m.medidas[0] - min_l_s) / range_l_s,
+                (m.medidas[1] - min_a_s) / range_a_s,
+                (m.medidas[2] - min_l_p) / range_l_p,
+                (m.medidas[3] - min_a_p) / range_a_p,
+            ]
+            nuevas_muestras.append(Muestra(medidas_norm, m.clase))
+
+        return Dataset(nuevas_muestras)
 
     def resumen_por_clase(self) -> dict[str, dict[str, float]]:
         """Estadísticas básicas por clase (reutiliza el proyecto 1)."""

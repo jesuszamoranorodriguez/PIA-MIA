@@ -31,7 +31,7 @@ def main(ruta: Path) -> None:
                    if m.clase == clase and p == clase)
         print(f"  {clase:<14}{bien:>4}/{total:<5}{bien / total:>6.0%}")
 
-    datos.rangos()
+    datos.normalizar(datos.rangos())
  
  
 if __name__ == "__main__":
